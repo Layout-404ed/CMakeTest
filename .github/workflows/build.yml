@@ -31,7 +31,8 @@ jobs:
 
       - name: Copy assets into build
         run: |
-          xcopy assets build/Release/assets /E /I /Y
+          mkdir build\Release\assets
+          xcopy assets\* build\Release\assets\ /E /I /Y
 
       - name: Zip exe and assets
         run: |
