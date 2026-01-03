@@ -23,18 +23,15 @@ jobs:
           cmake --build build --config Release
           cmake --install build
 
-      - name: Configure
-        run: |
-          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Configure game
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
-      - name: Build
-        run: |
-          cmake --build build --config Release
+      - name: Build game
+        run: cmake --build build --config Release
 
-      - name: Zip exe
+      - name: Package exe and assets
         run: |
-          cd build
-          tar -a -c -f game-windows.zip game.exe assets
+          tar -a -c -f build/game-windows.zip -C build game.exe assets
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
