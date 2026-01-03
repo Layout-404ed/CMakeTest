@@ -1,0 +1,1 @@
+/usr/local/opt/llvm/bin/clang++ -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/game.dir/src/main.cpp.o CMakeFiles/game.dir/src/Player.cpp.o -o game.app/Contents/MacOS/game  /usr/local/Cellar/raylib/5.5/lib/libraylib.dylib -L/usr/local/Cellar/raylib/5.5/lib -lraylib
