@@ -3,14 +3,14 @@
 #include "raylib.h"
 
 Player::Player(){
-    key = (Key){
+    key = {
         .up = KEY_W,
         .down = KEY_S,
         .left = KEY_A,
         .right = KEY_D
     };
 
-    rect = (Rectangle){
+    rect = {
         .x = GetScreenWidth() / 2.0f - 50.0f,
         .y = GetScreenHeight() / 2.0f + 50.0f,
         .width = 100.0f,
