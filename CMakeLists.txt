@@ -28,6 +28,10 @@ if(APPLE)
     )
 endif()
 
+if(WIN32)
+    target_link_libraries(game PRIVATE winmm)
+endif()
+
 # Copy assets next to the executable after build
 add_custom_command(
     TARGET game POST_BUILD
