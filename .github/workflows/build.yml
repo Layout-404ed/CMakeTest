@@ -30,11 +30,13 @@ jobs:
         run: cmake --build build --config Release
 
       - name: Copy assets into build
+        shell: powershell
         run: |
-          mkdir build\Release\assets
+          mkdir build\Release\assets -Force
           xcopy assets\* build\Release\assets\ /E /I /Y
 
       - name: Zip exe and assets
+        shell: powershell
         run: |
           tar -a -c -f build/game-windows.zip -C build/Release game.exe assets
 
