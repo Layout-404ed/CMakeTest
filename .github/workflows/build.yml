@@ -1,0 +1,75 @@
+name: Build Releases
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  macos:
+    name: macOS (.app)
+    runs-on: macos-12
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          brew update
+          brew install cmake raylib
+
+      - name: Configure
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: |
+          cmake --build build --config Release
+
+      - name: Zip app
+        run: |
+          cd build
+          zip -r game-macos.app.zip game.app
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: game-macos
+          path: build/game-macos.app.zip
+
+  windows:
+    name: Windows (.exe)
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install raylib
+        run: |
+          git clone https://github.com/raysan5/raylib.git
+          cd raylib
+          cmake -S . -B build -DBUILD_SHARED_LIBS=OFF
+          cmake --build build --config Release
+          cmake --install build
+
+      - name: Configure
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: |
+          cmake --build build --config Release
+
+      - name: Zip exe
+        run: |
+          cd build
+          tar -a -c -f game-windows.zip game.exe assets
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: game-windows
+          path: build/game-windows.zip

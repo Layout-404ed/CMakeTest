@@ -22,6 +22,7 @@ target_link_libraries(game PRIVATE raylib)
 
 # macOS: create proper app bundle (optional but recommended)
 if(APPLE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "12.0")
     set_target_properties(game PROPERTIES
         MACOSX_BUNDLE TRUE
     )
